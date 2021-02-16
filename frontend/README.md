@@ -1,6 +1,9 @@
 # gyramais-test
 Desafio para vaga Fullstack developer GYRA+
 
+## Dependencias
+ReactJS | React Redux | React Router Dom
+
 ## Layout
 ### Desktop
 <img src="./.gitlab/assets/large-login.png" width=400 >
