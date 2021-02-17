@@ -2,16 +2,14 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-function PrivateRoute({ component: Component, ...rest }) {
+function PrivateRoute({ component: Component, socket, ...rest }) {
   const { user } = useSelector(state => state.auth);
   return (
     <Route
       {...rest}
-      render={
-        props =>
+      render={props =>
           user ? (
-            <Component {...props} />
-          ) : (
+            <Component socket={socket} />) : (
             <Redirect
               to={{
                 pathname: '/',
