@@ -2,4 +2,4 @@
 Desafio para vaga Fullstack developer GYRA+ - Backend
 
 ## Dependencias
-NodeJS | MongoDB | Express | Mongoose | dotenv | body-parser
+NodeJS | Express | SocketIO | Mongoose | dotenv | body-parser
