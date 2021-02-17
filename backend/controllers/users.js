@@ -1,40 +1,56 @@
 const { response } = require('express');
 const User = require('../models/user');
 
-exports.createUser = async (req, res) => {
-    const { name, islogged } = req.body;
+exports.createUser = async ({_id, name, islogged }) => {
 
-    const newUser = new User({ name, islogged });
+    const newUser = new User({ _id, name, islogged });
     
     if(!name) { 
-        return res
-            .status(400)
-            .json({ detail: "Nome de usuário não fornecido."});
+        return {
+            type: 'error',
+            status: 400,
+            datail: "Nome de usuário não fornecido."
+        };
     }
 
     newUser
         .save()
-        .then(response => {
-            return res
-                .status(201)
-                .json({ newUser });
+        .then(() => {
+            return {
+                type: 'response',
+                status: 201,
+                datail: "Usuário criado.",
+                user: newUser
+            };
         })
-        .catch(error => {
-            return res
-                .status(403)
-                .json({ datail: "Falha na requisição. Usuário já existe."});
+        .catch(() => {
+            return {
+                type: 'error',
+                status: 403,
+                datail: "Falha na requisição. Usuário já existe."
+            };
         });
 };
 
-exports.deleteUser = async (req, res) => {
-    User.findByIdAndDelete(req.params.id)
-        .then(response=> {
-            return res
-                .status(204)
-                .send("Usuário deletado");
-        }).catch(error => {
-            return res
-                .status(400)
-                .json({ detail: "Usuaário não deletado." })
+exports.getUser = async id => {
+    const user = await User.findById(id);
+    return user;
+}
+
+exports.deleteUser = async id => {
+    const response = User.findByIdAndDelete(id)
+        .then(() => {
+            return {
+                type: 'response',
+                status: 204,
+                datail: "Usuário deletado."
+            };
+        }).catch(() => {
+            return {
+                type: 'error',
+                status: 400,
+                datail: "Usuaário não deletado."
+            };
         });
+    return response;
 };
