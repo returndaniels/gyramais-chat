@@ -3,11 +3,11 @@ const User = require('../models/user');
 
 exports.createUser = async ({_id, name, islogged }) => {
 
+    let error = null;
     const newUser = new User({ _id, name, islogged });
     
     if(!name) { 
-        return {
-            type: 'error',
+        error = {
             status: 400,
             datail: "Nome de usuário não fornecido."
         };
@@ -17,18 +17,20 @@ exports.createUser = async ({_id, name, islogged }) => {
         .save()
         .then(() => {
             return {
-                type: 'response',
-                status: 201,
-                datail: "Usuário criado.",
-                user: newUser
+                user: newUser,
+                error
             };
         })
         .catch(() => {
-            return {
+            error = {
                 type: 'error',
                 status: 403,
                 datail: "Falha na requisição. Usuário já existe."
             };
+            return {
+                user: null,
+                error
+            }
         });
 };
 
@@ -40,16 +42,14 @@ exports.getUser = async id => {
 exports.deleteUser = async id => {
     const response = User.findByIdAndDelete(id)
         .then(() => {
-            return {
-                type: 'response',
-                status: 204,
-                datail: "Usuário deletado."
-            };
+            return { error: null };
         }).catch(() => {
             return {
-                type: 'error',
-                status: 400,
-                datail: "Usuaário não deletado."
+                error: {
+                    type: 'error',
+                    status: 400,
+                    datail: "Usuaário não deletado."
+                }
             };
         });
     return response;

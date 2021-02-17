@@ -42,8 +42,10 @@ io.on('connect', (socket) => {
       callback();
     });
   
-    socket.on('disconnect', () => {
-      const user = deleteUser(socket.id);
+    socket.on('disconnect', (user, callback) => {
+      const { error } = deleteUser(socket.id);
+      
+      callback(error);
   
       if(user) {
         io.emit('joinedEvent', { text: `${user.name} saiu do chat` });
