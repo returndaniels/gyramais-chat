@@ -1,8 +1,6 @@
-const { response } = require('express');
 const User = require('../models/user');
 
 exports.createUser = async ({_id, name, islogged }) => {
-
     let error = null;
     const newUser = new User({ _id, name, islogged });
     

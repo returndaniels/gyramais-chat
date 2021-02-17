@@ -4,8 +4,6 @@ const socketio = require('socket.io');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const authRoutes = require('./routes/user');
-
 require('dotenv').config();
 require('./database');
 
@@ -21,7 +19,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cors());
-app.use('/api/user', authRoutes);
 
 io.on('connect', (socket) => {
     socket.on('join', ({ name, islogged }, callback) => {
@@ -29,7 +26,10 @@ io.on('connect', (socket) => {
 
         if(error) return callback(error);
 
-        socket.broadcast.emit('joinedEvent', { text: `${user.name} entrou no chat` });
+        socket.emit('joined', { _id: socket.id, name, islogged });
+        socket.broadcast.emit('joinedEvent', {  
+            text: `${name} entrou no chat` 
+        });
   
         callback();
     });
@@ -53,4 +53,4 @@ io.on('connect', (socket) => {
     })
   });
 
-app.listen(port, console.log(`Server running on ${port}`));
+server.listen(4200, () => console.log(`Server running on ${port}`));
