@@ -8,7 +8,7 @@ const Routes = ({ socket }) => (
   <BrowserRouter>
     <Switch>
       <Route exact path="/" render={() => <SignIn socket={socket} />} />
-      <PrivateRoute path="/chat" render={() => <Chat socket={socket} />} />
+      <PrivateRoute path="/chat" component={Chat} socket={socket}/>
     </Switch>
   </BrowserRouter>
 );
