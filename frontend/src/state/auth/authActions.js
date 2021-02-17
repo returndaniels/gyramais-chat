@@ -25,15 +25,20 @@ export function signInFailed(error) {
 }
 
 export function signIn(credentials, socket) {
-  return async (dispatch) => {
+  return (dispatch) => {
     dispatch(signInStarted());
 
-    const user  = await socket.emit('join', credentials, error => {
-      if(error){ dispatch(signInFailed(error.datail)); }
-    }) ;
+    socket.emit('join', credentials, error => {
+      if(error){ 
+        dispatch(signInFailed(error.datail));
+        return; 
+      }
+    });
 
-    dispatch(signInSucceeded(user));
-    localStorage.setItem('user', JSON.stringify(user));
+    socket.on('joined', user => {
+      dispatch(signInSucceeded(user));
+      localStorage.setItem('user', JSON.stringify(user));
+    });
   };
 }
 
