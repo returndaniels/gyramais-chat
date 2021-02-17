@@ -1,0 +1,14 @@
+.Chat {
+    position: relative;
+    background-color: #F7F8F9;
+    height: 100vh;
+}
+
+.Chat .chatHeader {
+    background-color: #fff;
+}
+
+.Chat .footerChat {
+    position: absolute;
+    bottom: 0;
+}

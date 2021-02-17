@@ -1,4 +1,4 @@
-.header {
+.chatHeader {
     display: flex;
     position: relative;
     width: 100%;
@@ -6,13 +6,13 @@
     border-bottom: 1px solid #6EBFCC;
 }
 
-.header img {
+.chatHeader img {
     position: absolute;
     left: 2rem;
     top: 2rem;
 }
 
-.header button {
+.chatHeader button {
     position: absolute;
     right: 2rem;
     top: 2.5rem;

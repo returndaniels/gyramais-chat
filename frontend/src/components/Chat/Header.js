@@ -4,7 +4,7 @@ import './Header.css';
 
 const Header = ({ handleLogOut }) => {
 	return (
-		<div className="header">
+		<div className="chatHeader">
 				<img alt={logo} src={logo} />
 				<button 
 					onClick={()=> {

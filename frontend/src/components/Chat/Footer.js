@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './Footer.css';
 
-const Footer = ({ sendMessage }) => {
+const Footer = ({ sendMessage, className }) => {
 	const [message, setMessage] = useState('');
 
 	return (
-		<footer className="footer">
+		<footer className={`footer ${className}`}>
 			<textarea
 				rows="2" 
 				cols="50"
@@ -21,7 +21,9 @@ const Footer = ({ sendMessage }) => {
 					onClick={()=> {
 						sendMessage(message);
 					}}
-			/>
+			>
+				Enviar
+			</button>
 		</footer>
 	);
 };
