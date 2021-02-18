@@ -13,6 +13,7 @@
 @media only screen and (max-width: 1080px) {
     .joinContainer {
         font-size: .8rem;
+        min-width: 20rem;
     }
 }
 
