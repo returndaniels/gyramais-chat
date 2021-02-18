@@ -1,31 +1,23 @@
 import * as actionTypes from './messageActionTypes';
 
-export function saveMessageStarted(messages) {
-  return {
-    type: actionTypes.SAVE_MESSAGES,
-    payload: {
-      messages,
-    },
-  };
-}
-
 export function saveMessages(messages) {
   return (dispatch) => {
-    dispatch(saveMessageStarted(messages));
+    dispatch({
+      type: actionTypes.SAVE_MESSAGES,
+      payload: {
+        messages,
+      },
+    });
   };
 }
 
-function setMessageStarted(message) {
-  return {
-    type: actionTypes.SET_MESSAGE,
-    payload: {
-      message
-    }
-  };
-}
-
-export function setMessage(socket, message) {
+export function setMessage(message) {
   return (dispatch) => {
-    dispatch(setMessageStarted(message));
+    dispatch({
+      type: actionTypes.SET_MESSAGE,
+      payload: {
+        message
+      }
+    });
   };
 }
