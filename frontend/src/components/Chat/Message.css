@@ -1,0 +1,14 @@
+.message {
+    background-color: #DBEBF0;
+    width:fit-content;
+    min-height: 2rem;
+    min-width: 20rem;
+    max-width: 70%;
+    margin: 2rem 2rem .5rem;
+    padding: 1px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: .7rem;
+    border-radius: 1.5rem;
+    text-align: left;
+}
