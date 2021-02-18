@@ -1,13 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Chat/Header';
 import Footer from '../components/Chat/Footer';
 import MessageStory from "../components/Chat/MessageStory";
 import { useDispatch } from 'react-redux';
 import { signOut } from '../state/auth/authActions';
+import { setMessage } from '../state/messages/messageActions';
 import './Chat.css'
 
 const Chat = ({ socket }) => {
 	const dispatch = useDispatch();
+	const [errors, setErrors] = useState([]);
+
+	const sendMessage = message => {
+		socket.emit('sendMessage', message, error => {
+			if(error){ 
+			  setErrors([...errors, error]);
+			}
+		});
+	};
+
+	useEffect(()=>{	  
+		socket.on('message', message => {
+			setMessage(message);
+		});
+	  
+	}, [socket]);
+
   return (
 		<div className="Chat">
 			<Header handleLogOut={() => dispatch(signOut(socket))}></Header>
@@ -19,7 +37,7 @@ const Chat = ({ socket }) => {
 				]}
 			>
 			</MessageStory>
-			<Footer className="footerChat"></Footer>
+			<Footer className="footerChat" sendMessage={sendMessage}></Footer>
 		</div>
 	);
 };
