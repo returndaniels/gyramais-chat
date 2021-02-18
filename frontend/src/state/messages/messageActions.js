@@ -2,7 +2,7 @@ import * as actionTypes from './messageActionTypes';
 
 export function saveMessageStarted(messages) {
   return {
-    type: actionTypes.SAVE_MESSAGES_STARTED,
+    type: actionTypes.SAVE_MESSAGES,
     payload: {
       messages,
     },
@@ -15,41 +15,17 @@ export function saveMessages(messages) {
   };
 }
 
-function sendMessageStarted() {
+function setMessageStarted(message) {
   return {
-    type: actionTypes.SEND_MESSAGE_STARTED,
-  };
-}
-
-function sendMessageSucceeded(message) {
-  return {
-    type: actionTypes.SEND_MESSAGE_SUCCEEDED,
+    type: actionTypes.SET_MESSAGE,
     payload: {
       message
     }
   };
 }
 
-function sendMessageFailed() {
-  return {
-    type: actionTypes.SEND_MESSAGE_FAILED
-  };
-}
-
-export function sendMessage(socket, message) {
+export function setMessage(socket, message) {
   return (dispatch) => {
-    dispatch(sendMessageStarted());
-
-    socket.emit('sendMessage', message, error => {
-      if(error){ 
-        dispatch(sendMessageFailed(error.datail));
-        return; 
-      }
-    });
-
-    socket.on('message', message => {
-      sendMessageSucceeded(message);
-    });
-
+    dispatch(setMessageStarted(message));
   };
 }
