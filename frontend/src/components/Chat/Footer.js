@@ -20,6 +20,7 @@ const Footer = ({ sendMessage, className }) => {
 			<button 
 					onClick={()=> {
 						sendMessage(message);
+						setMessage('');
 					}}
 			>
 				Enviar
