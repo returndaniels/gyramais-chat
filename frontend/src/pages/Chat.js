@@ -10,6 +10,7 @@ import './Chat.css'
 const Chat = ({ socket }) => {
 	const dispatch = useDispatch();
 	const { messages } = useSelector(state => state.messages);
+	const { user } = useSelector(state => state.auth);
 	const [errors, setErrors] = useState([]);
 
 	const sendMessage = message => {
@@ -34,7 +35,8 @@ const Chat = ({ socket }) => {
   return (
 		<div className="Chat">
 			<Header handleLogOut={() => dispatch(signOut(socket))}></Header>
-			<MessageStory 
+			<MessageStory
+				user={user}
 				messages={messages}
 			>
 			</MessageStory>
