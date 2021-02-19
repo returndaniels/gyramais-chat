@@ -11,9 +11,12 @@ const Chat = ({ socket }) => {
 	const dispatch = useDispatch();
 	const { messages } = useSelector(state => state.messages);
 	const { user } = useSelector(state => state.auth);
+	const [errors, setError] = useState([]);
 
 	const sendMessage = message => {
-		socket.emit('sendMessage', { user, message },);
+		socket.emit('sendMessage', { user, message }, error => {
+			setError([...errors, error]);
+		});
 	};
 
 	useEffect(() => {
