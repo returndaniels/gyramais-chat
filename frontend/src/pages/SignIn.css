@@ -1,0 +1,18 @@
+.signInPage {
+    height: 100vh;
+}
+.signInPage .header {
+    position: relative;
+    width: 100%;
+    height: 3.75rem;
+}
+
+.signInPage .header img {
+    position: absolute;
+    left: 2rem;
+    top: 2rem;
+}
+
+.signInPage .jForm {
+    margin: 6rem auto 0;
+}

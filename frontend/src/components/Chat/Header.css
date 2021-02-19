@@ -1,0 +1,31 @@
+.chatHeader {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 6rem;
+    border-bottom: 1px solid #6EBFCC;
+}
+
+.chatHeader img {
+    position: absolute;
+    left: 2rem;
+    top: 2rem;
+}
+
+.chatHeader button {
+    position: absolute;
+    right: 2rem;
+    top: 2.5rem;
+    background: none;
+	color: inherit;
+    border: none;
+    outline: none;
+    background: url(../../assets/logout.svg);
+    background-size: 1.5rem ;
+    background-repeat: no-repeat;
+    background-position: 5px;
+    height: 2rem;
+    width: 2rem;
+
+    cursor: pointer;
+}

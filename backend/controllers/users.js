@@ -1,8 +1,6 @@
-const { response } = require('express');
 const User = require('../models/user');
 
 exports.createUser = async ({_id, name, islogged }) => {
-
     let error = null;
     const newUser = new User({ _id, name, islogged });
     
@@ -11,27 +9,11 @@ exports.createUser = async ({_id, name, islogged }) => {
             status: 400,
             datail: "Nome de usuário não fornecido."
         };
+        throw error;
     }
 
-    newUser
-        .save()
-        .then(() => {
-            return {
-                user: newUser,
-                error
-            };
-        })
-        .catch(() => {
-            error = {
-                type: 'error',
-                status: 403,
-                datail: "Falha na requisição. Usuário já existe."
-            };
-            return {
-                user: null,
-                error
-            }
-        });
+    await newUser.save();
+    return newUser;
 };
 
 exports.getUser = async id => {
@@ -40,17 +22,6 @@ exports.getUser = async id => {
 }
 
 exports.deleteUser = async id => {
-    const response = User.findByIdAndDelete(id)
-        .then(() => {
-            return { error: null };
-        }).catch(() => {
-            return {
-                error: {
-                    type: 'error',
-                    status: 400,
-                    datail: "Usuaário não deletado."
-                }
-            };
-        });
+    const response = await User.findByIdAndDelete(id);
     return response;
 };

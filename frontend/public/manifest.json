@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Gyramais Chat",
+  "name": "Chat aberto feito com ReactJs",
   "icons": [
     {
       "src": "favicon.ico",

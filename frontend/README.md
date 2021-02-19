@@ -1,8 +1,8 @@
 # gyramais-test
-Desafio para vaga Fullstack developer GYRA+
+Desafio para vaga Fullstack developer GYRA+ - Frontend
 
 ## Dependencias
-ReactJS | React Redux | React Router Dom
+ReactJS | Redux | React Redux | React Router Dom | SocketIo Client
 
 ## Layout
 ### Desktop
