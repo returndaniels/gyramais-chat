@@ -9,7 +9,7 @@ const JoinForm = ({ socket, className }) => {
     handleSubmit,
     handleBlur,
     name,
-    errors,
+    //errors,
     submitting,
   } = useJoinForm(socket, JoinFormValidation);
 
