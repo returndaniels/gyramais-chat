@@ -1,6 +1,27 @@
 # gyramais-test
 Desafio para vaga Fullstack developer GYRA+
 
+## Instalação
+Use o git [clone](https://git-scm.com/docs/git-clone) para clonar o repositório. Então instale as dependencias com yarn.
+```bash
+git clone https://gitlab.com/returndaniels/gyramais-chat.git
+```
+
+### Linux
+```bash
+sh install.sh
+```
+
+### Windows
+```bash
+cd frontend
+npm install
+
+cd ../backend
+npm install
+
+```
+
 ## Dependencias
-ReactJS | React Redux | React Router Dom
-Express | Mongoose | dotenv
+Frontend: ReactJS | React Redux | React Router Dom
+Backend: Express | Mongoose | dotenv
