@@ -11,14 +11,9 @@ const Chat = ({ socket }) => {
 	const dispatch = useDispatch();
 	const { messages } = useSelector(state => state.messages);
 	const { user } = useSelector(state => state.auth);
-	const [errors, setErrors] = useState([]);
 
 	const sendMessage = message => {
-		socket.emit('sendMessage', message, error => {
-			if(error){ 
-			  setErrors([...errors, error]);
-			}
-		});
+		socket.emit('sendMessage', { user, message },);
 	};
 
 	useEffect(() => {
@@ -34,7 +29,7 @@ const Chat = ({ socket }) => {
 
   return (
 		<div className="Chat">
-			<Header handleLogOut={() => dispatch(signOut(socket))}></Header>
+			<Header handleLogOut={() => dispatch(signOut(socket, user))}></Header>
 			<MessageStory
 				user={user}
 				messages={messages}

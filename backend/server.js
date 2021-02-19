@@ -47,17 +47,24 @@ io.on('connection', (socket) => {
     callback();
   });
 
-  socket.on('sendMessage', ({ user, message }, callback) => {
-    io.emit('message', { user: user.name, text: message, date: new Date() });
-
-    callback();
+  socket.on('sendMessage', ({ user, message }) => {
+    io.emit(
+      'message', 
+      { 
+        user: user.name, 
+        text: message, 
+        date: new Date() 
+      });
   });
 
   socket.on('disConnect', (user) => {
-    console.log(user)
     if(user) {
       deleteUser(user._id);
-      io.emit('joinedEvent', { text: `${user.name} saiu do chat` });
+      io.emit(
+        'joinedEvent', 
+        { 
+          text: `${user.name} saiu do chat` 
+        });
     }
   })
 });

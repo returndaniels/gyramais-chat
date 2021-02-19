@@ -48,9 +48,9 @@ function signOutStarted() {
   };
 }
 
-export function signOut(socket) {
+export function signOut(socket, user) {
   return (dispatch) => {
-    // socket.disconnect();
+    socket.emit('disConnect', user);
     localStorage.removeItem('user');
     dispatch(signOutStarted());
   };
