@@ -2,17 +2,20 @@ const mongoose = require('../database');
 
 const messageSchema = new mongoose.Schema(
     {
-        content: {
+        text: {
             type: String,
             require: true
         },
-        author: {
+        user: {
             type: String,
             require: true
         },
-        authorIslogged: {
+        userIslogged: {
             type: Boolean,
             require: true
+        },
+        date: {
+            type: Date
         }
     }, { timestamps: true }
 );

@@ -15,7 +15,8 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-const { createUser, deleteUser, getUser } = require('./controllers/users');
+const { createUser, deleteUser } = require('./controllers/users');
+const { createMessage, getMessages } = require('./controllers/messages');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -47,14 +48,16 @@ io.on('connection', (socket) => {
     callback();
   });
 
-  socket.on('sendMessage', ({ user, message }) => {
-    io.emit(
-      'message', 
-      { 
-        user: user.name, 
-        text: message, 
-        date: new Date() 
-      });
+  socket.on('sendMessage', ({ user, message }, callback) => {
+    createMessage({ text: message, user: user.name, userIslogged: true, date: new Date() })
+      .then(message => io.emit('message', message))
+      .catch(error => callback(error));
+  });
+
+  socket.on('previusMessages', () => {
+    getMessages().then(messages=>{
+      io.emit('previusMessages', messages);
+    });
   });
 
   socket.on('disConnect', (user) => {
