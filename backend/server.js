@@ -25,16 +25,16 @@ app.use(router);
 
 io.on('connection', (socket) => {
   socket.on('join', ({ name, islogged }, callback) => {
-      const { error, user } = createUser({ _id: socket.id, name, islogged });
+    const { error, user } = createUser({ _id: socket.id, name, islogged });
 
-      if(error) return callback(error);
+    if(error) return callback(error);
 
-      socket.emit('joined', { _id: socket.id, name, islogged });
-      socket.broadcast.emit('joinedEvent', {  
-          text: `${name} entrou no chat` 
-      });
+    socket.emit('joined', { _id: socket.id, name, islogged });
+    socket.broadcast.emit('joinedEvent', {  
+        text: `${name} entrou no chat` 
+    });
 
-      callback();
+    callback();
   });
 
   socket.on('sendMessage', (message, callback) => {
