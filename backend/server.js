@@ -23,35 +23,40 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(router);
 
+const generateHash = (string) => {
+  var hash = 0, i, chr;
+  for (i = 0; i < string.length; i++) {
+    chr   = string.charCodeAt(i);
+    hash  = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+} 
+
 io.on('connection', (socket) => {
   socket.on('join', ({ name, islogged }, callback) => {
-    const { error, user } = createUser({ _id: socket.id, name, islogged });
-
-    if(error) return callback(error);
-
-    socket.emit('joined', { _id: socket.id, name, islogged });
-    socket.broadcast.emit('joinedEvent', {  
-        text: `${name} entrou no chat` 
-    });
-
+    createUser({ _id: generateHash(name), name, islogged })
+      .then(user => {
+        socket.emit('joined', user);
+        socket.broadcast.emit('joinedEvent', {  
+            text: `${name} entrou no chat` 
+        });
+      })
+      .catch(error => callback(error));
+      
     callback();
   });
 
-  socket.on('sendMessage', (message, callback) => {
-    const user = getUser(socket.id);
-
+  socket.on('sendMessage', ({ user, message }, callback) => {
     io.emit('message', { user: user.name, text: message, date: new Date() });
 
     callback();
   });
 
-  socket.on('disconnect', (user, callback) => {
-    const { error } = deleteUser(socket.id);
-    if(callback) {
-      callback(error);
-    }
-    
+  socket.on('disConnect', (user) => {
+    console.log(user)
     if(user) {
+      deleteUser(user._id);
       io.emit('joinedEvent', { text: `${user.name} saiu do chat` });
     }
   })
