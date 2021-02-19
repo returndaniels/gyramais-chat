@@ -44,14 +44,14 @@ io.on('connection', (socket) => {
     callback();
   });
 
-  socket.on('userJoined', (user) => {
+  socket.on('userLoggedIn', (user) => {
     io.emit('userJoinedEvent', {  
       user: "Admin",
       text: `${user.name} entrou no chat` 
     });
   });
 
-  socket.on('userDisconnected', (user) => {
+  socket.on('userLoggedOut', (user) => {
     if(user) {
       deleteUser(user._id);
       io.emit('userJoinedEvent', { 

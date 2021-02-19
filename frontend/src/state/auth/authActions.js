@@ -50,7 +50,7 @@ function signOutStarted() {
 
 export function signOut(socket, user) {
   return (dispatch) => {
-    socket.emit('userDisconnected', user);
+    socket.emit('userLoggedOut', user);
     localStorage.removeItem('user');
     dispatch(signOutStarted());
   };
