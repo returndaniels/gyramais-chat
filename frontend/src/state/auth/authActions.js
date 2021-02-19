@@ -35,7 +35,7 @@ export function signIn(credentials, socket) {
       }
     });
 
-    socket.on('joined', user => {
+    socket.on('userJoined', user => {
       dispatch(signInSucceeded(user));
       localStorage.setItem('user', JSON.stringify(user));
     });
@@ -50,7 +50,7 @@ function signOutStarted() {
 
 export function signOut(socket, user) {
   return (dispatch) => {
-    socket.emit('disConnect', user);
+    socket.emit('userDisconnected', user);
     localStorage.removeItem('user');
     dispatch(signOutStarted());
   };
