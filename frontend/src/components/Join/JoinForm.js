@@ -27,7 +27,7 @@ const JoinForm = ({ socket, className }) => {
             value={name}
             onChange={handleChange} 
             onBlur={handleBlur}
-            style={{ 'border-color': 'red' }}
+            style={formError ? { 'border-color': 'red' } : {}}
           />
           <div className="error">{formError}</div>
           <div className="submitContainer">
