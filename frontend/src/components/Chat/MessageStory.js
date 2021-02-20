@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Message from './Message';
 import './MessageStory.css';
 
 const MessageStory = ({ messages, user, className }) => {
+
+	useEffect(() => {
+		document.getElementById('lastMessage')?.scrollIntoView();
+	});
 
 	const formatStringDate = date => {
 		if(!date) return date;
@@ -16,8 +20,10 @@ const MessageStory = ({ messages, user, className }) => {
 
 	return (
 		<div className={`MessageStory ${className}`}>
-			{messages.map(message =>
+			{messages.map((message, index) =>
 				<Message 
+					key={index}
+					lastMessage={index === messages.length-1}
 					message={{
 						...message, 
 						date: formatStringDate(message.date)
