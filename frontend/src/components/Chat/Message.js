@@ -1,7 +1,7 @@
 import React from 'react';
 import './Message.css';
 
-const Message = ({ message, highlighted, lastMessage }) => {
+const Message = ({ message, highlighted }) => {
 	return (
 		<div 
 			className={
