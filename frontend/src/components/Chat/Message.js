@@ -1,11 +1,12 @@
 import React from 'react';
 import './Message.css';
 
-const Message = ({ message, highlighted, lastMessage }) => {
+const Message = ({ message, highlighted }) => {
 	return (
 		<div 
-			className={highlighted ? 'message highlighted': 'message'} 
-			{...(lastMessage? {id: 'lastMessage'} : {})} 
+			className={
+				highlighted ? 'message highlighted': 'message'
+			} 
 		>
 			<strong>{message.user}</strong>
 			<p>{message.text}</p>

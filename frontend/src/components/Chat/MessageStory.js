@@ -1,12 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Message from './Message';
+import ScrollToBotton from 'react-scroll-to-bottom';
 import './MessageStory.css';
 
 const MessageStory = ({ messages, user, className }) => {
-
-	useEffect(() => {
-		document.getElementById('lastMessage')?.scrollIntoView();
-	});
 
 	const formatStringDate = date => {
 		if(!date) return date;
@@ -19,19 +16,18 @@ const MessageStory = ({ messages, user, className }) => {
 	}
 
 	return (
-		<div className={`MessageStory ${className}`}>
+		<ScrollToBotton className={`MessageStory ${className}`}>
 			{messages.map((message, index) =>
 				<Message 
 					key={index}
-					lastMessage={index === messages.length-1}
 					message={{
 						...message, 
 						date: formatStringDate(message.date)
 					}} 
 					highlighted={message.user === user.name} 
 				/>
-			)}
-		</div>
+		)}
+		</ScrollToBotton>
 	);
 };
 
