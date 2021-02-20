@@ -6,6 +6,7 @@ const Message = ({ message, highlighted }) => {
 		<div className={highlighted ? 'message highlighted': 'message'}>
 			<strong>{message.user}</strong>
 			<p>{message.text}</p>
+			{message.date && <div className='date'>{message.date}</div>}
 		</div>
 	);
 };
