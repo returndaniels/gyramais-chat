@@ -50,7 +50,7 @@
     color: #fff;
     font-size: medium;
     font-weight: bold;
-    width: 50%;
+    width: 40%;
     min-width: 10rem;
     height: 2.7rem;
     margin: 1rem auto 0;
@@ -61,4 +61,41 @@
 
 .joinInnerContainer .joinForm  button[type=submit]:hover {
     opacity: 1;
+}
+
+.joinInnerContainer .submitContainer {
+	position: relative;
+	display: flex;
+}
+
+.joinInnerContainer .submitContainer img {
+    position: absolute;
+	width: 2rem;
+    height: 2rem;
+    top: 35%;
+}
+
+@media only screen and (max-width: 885px) {
+    .joinInnerContainer .submitContainer img {
+        left: -1rem;
+    }
+}
+
+@media only screen and (min-width: 980px) {
+    .joinInnerContainer .submitContainer img {
+        left: 10%;
+    }
+}
+
+@media only screen and (min-width: 1315px) {
+    .joinInnerContainer .submitContainer img {
+        left: 15%;
+    }
+}
+
+
+@media only screen and (min-width: 1444px) {
+    .joinInnerContainer .submitContainer img {
+        left: 20%;
+    }
 }

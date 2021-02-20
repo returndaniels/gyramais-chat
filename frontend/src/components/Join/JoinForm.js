@@ -1,6 +1,7 @@
 import React from 'react';
 import useJoinForm from './useJoinForm';
 import JoinFormValidation from './JoinFromValidation';
+import loadingIo from '../../assets/loadingio.svg';
 import './JoinFrom.css';
 
 const JoinForm = ({ socket, className }) => {
@@ -27,9 +28,12 @@ const JoinForm = ({ socket, className }) => {
             onChange={handleChange} 
             onBlur={handleBlur}
           />
-          <button type="submit" className="" disabled={submitting} style={{}}>
-              Acessar
-          </button>
+          <div className="submitContainer">
+            {submitting && <img alt="loaging..." src={loadingIo} />}
+            <button type="submit" className="" disabled={submitting} style={{}}>
+                Acessar
+            </button>
+          </div>
         </form>
       </div>
     </div>
