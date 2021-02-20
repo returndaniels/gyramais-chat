@@ -1,9 +1,9 @@
 export default function signInFormValidation(name) {
-  const errors = {};
+  var error = null;
 
   if (!name) {
-    errors.detail = 'Usuário requerido';
+    error = 'Forneça um nome de usuário';
   }
 
-  return errors;
+  return error;
 }

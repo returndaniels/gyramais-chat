@@ -28,17 +28,16 @@ export function signIn(credentials, socket) {
   return (dispatch) => {
     dispatch(signInStarted());
 
-    socket.emit('join', credentials, error => {
-      if(error){ 
-        dispatch(signInFailed(error.datail));
-        return; 
-      }
-    });
+    socket.emit('join', credentials);
 
-    socket.on('joined', user => {
+    socket.on('userJoined', user => {
       dispatch(signInSucceeded(user));
       localStorage.setItem('user', JSON.stringify(user));
     });
+
+    socket.on('userJoinError', error => {
+      dispatch(signInFailed(error));
+    })
   };
 }
 
@@ -50,7 +49,7 @@ function signOutStarted() {
 
 export function signOut(socket, user) {
   return (dispatch) => {
-    socket.emit('disConnect', user);
+    socket.emit('userLoggedOut', user);
     localStorage.removeItem('user');
     dispatch(signOutStarted());
   };

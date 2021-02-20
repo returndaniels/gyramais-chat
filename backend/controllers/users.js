@@ -6,8 +6,9 @@ exports.createUser = async ({_id, name, islogged }) => {
     
     if(!name) { 
         error = {
+            name: "RequestError",
             status: 400,
-            datail: "Nome de usuário não fornecido."
+            detail: "Nome de usuário não fornecido."
         };
         throw error;
     }

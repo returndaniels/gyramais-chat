@@ -38,15 +38,36 @@ io.on('connection', (socket) => {
   socket.on('join', ({ name, islogged }, callback) => {
     createUser({ _id: generateHash(name), name, islogged })
       .then(user => {
-        socket.emit('joined', user);
-        socket.broadcast.emit('joinedEvent', {  
-            text: `${name} entrou no chat` 
-        });
+        socket.emit('userJoined', user);
       })
-      .catch(error => callback(error));
-      
-    callback();
+      .catch(error => {
+        if(error.name === 'MongoError') {
+          error = {
+            name: error.name,
+            status: 409,
+            detail: "O nome fornecido já é um nome registrado."
+          }
+        }
+        socket.emit('userJoinError', error);
+      });
   });
+
+  socket.on('userLoggedIn', (user) => {
+    io.emit('userJoinedEvent', {  
+      user: "Admin",
+      text: `${user.name} entrou no chat` 
+    });
+  });
+
+  socket.on('userLoggedOut', (user) => {
+    if(user) {
+      deleteUser(user._id);
+      io.emit('userJoinedEvent', { 
+          user: "Admin",
+          text: `${user.name} saiu do chat` 
+        });
+    }
+  })
 
   socket.on('sendMessage', ({ user, message }, callback) => {
     createMessage({ text: message, user: user.name, userIslogged: true, date: new Date() })
@@ -54,22 +75,12 @@ io.on('connection', (socket) => {
       .catch(error => callback(error));
   });
 
-  socket.on('previusMessages', () => {
+  socket.on('previusMessagesRequest', () => {
     getMessages().then(messages=>{
-      io.emit('previusMessages', messages);
+      io.to(socket.id).emit('previusMessagesResponse', messages);
     });
   });
 
-  socket.on('disConnect', (user) => {
-    if(user) {
-      deleteUser(user._id);
-      io.emit(
-        'joinedEvent', 
-        { 
-          text: `${user.name} saiu do chat` 
-        });
-    }
-  })
 });
 
 server.listen(port, () => console.log(`Server has started.`));
