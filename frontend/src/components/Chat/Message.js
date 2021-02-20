@@ -4,8 +4,9 @@ import './Message.css';
 const Message = ({ message, highlighted, lastMessage }) => {
 	return (
 		<div 
-			className={highlighted ? 'message highlighted': 'message'} 
-			{...(lastMessage? {id: 'lastMessage'} : {})} 
+			className={
+				highlighted ? 'message highlighted': 'message'
+			} 
 		>
 			<strong>{message.user}</strong>
 			<p>{message.text}</p>
