@@ -40,8 +40,16 @@ io.on('connection', (socket) => {
       .then(user => {
         socket.emit('userJoined', user);
       })
-      .catch(error => callback(error));
-    callback();
+      .catch(error => {
+        if(error.name === 'MongoError') {
+          error = {
+            name: error.name,
+            status: 409,
+            detail: "O nome fornecido já é um nome registrado."
+          }
+        }
+        socket.emit('userJoinError', error);
+      });
   });
 
   socket.on('userLoggedIn', (user) => {
