@@ -10,7 +10,7 @@ const JoinForm = ({ socket, className }) => {
     handleSubmit,
     handleBlur,
     name,
-    //errors,
+    formError,
     submitting,
   } = useJoinForm(socket, JoinFormValidation);
 
@@ -27,7 +27,9 @@ const JoinForm = ({ socket, className }) => {
             value={name}
             onChange={handleChange} 
             onBlur={handleBlur}
+            style={{ 'border-color': 'red' }}
           />
+          <div className="error">{formError}</div>
           <div className="submitContainer">
             {submitting && <img alt="loaging..." src={loadingIo} />}
             <button type="submit" className="" disabled={submitting} style={{}}>

@@ -63,6 +63,10 @@
     opacity: 1;
 }
 
+.joinInnerContainer .error {
+    color: red;
+}
+
 .joinInnerContainer .submitContainer {
 	position: relative;
 	display: flex;

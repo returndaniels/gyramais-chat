@@ -4,23 +4,26 @@ import { signIn } from '../../state/auth/authActions';
 
 function useJoinForm(socket, validate) {
   const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.auth);
+  const { isLoading, error } = useSelector((state) => state.auth);
 
   const [name, setName] = useState('');
-  const [errors, setErrors] = useState({});
+  const [formError, setFormError] = useState(error?.detail);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (isSubmitting && isLoading === false) {
-      const noErrors = Object.keys(errors).length === 0;
-      if (noErrors) {
+      if (!formError) {
         dispatch(signIn({ name, islogged: true }, socket));
         setIsSubmitting(false);
       } else {
         setIsSubmitting(false);
       }
     }
-  }, [errors, name, isSubmitting, dispatch, isLoading, socket]);
+  }, [formError, name, isSubmitting, isLoading, socket, dispatch]);
+
+  useEffect(() => { 
+    setFormError(error?.detail);
+  },[error]);
 
   function handleChange(event) {
     setName(event.target.value);
@@ -28,13 +31,13 @@ function useJoinForm(socket, validate) {
 
   function handleBlur() {
     const validationErrors = validate(name);
-    setErrors(validationErrors);
+    setFormError(validationErrors);
   }
 
   function handleSubmit(event) {
     event.preventDefault();
     const validationErrors = validate(name);
-    setErrors(validationErrors);
+    setFormError(validationErrors);
     setIsSubmitting(true);
   }
 
@@ -43,7 +46,7 @@ function useJoinForm(socket, validate) {
     handleSubmit,
     handleBlur,
     name,
-    errors,
+    formError,
     submitting: isSubmitting || isLoading,
   };
 }
