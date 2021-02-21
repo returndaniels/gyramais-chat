@@ -17,6 +17,8 @@
     margin: auto;
 }
 
+textarea:focus { outline: none }
+
 .footer button {
     margin: auto 7px;
     width: 10em;
