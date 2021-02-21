@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
 
-const connect = (port = 4200) => {
-    var socket = io.connect(`http://localhost:${port}`, {
+const connect = () => {
+    var socket = io.connect(`https://gyramais-chat.herokuapp.com`, {
         reconnection: true,
     });
 
