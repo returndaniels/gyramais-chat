@@ -20,4 +20,6 @@ Executa a aplicação em modo de desenvolvimento.<br />
 Abra [http://localhost:3000](http://localhost:3000) para abrir no navegador.
 
 ## Dependencias
-NodeJS | Express | SocketIO | Mongoose | dotenv | body-parser
+NodeJS | Graphql Yoga | Mongoose | dotenv 
+
+A biblioteca `graphql-yoga` foi escolhida por ser uma das implementações mais simpoles baseada em `express` e `apollo-server` 

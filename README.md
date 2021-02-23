@@ -26,4 +26,4 @@ npm install
 
 ## Dependencias
 Frontend: ReactJS | React Redux | React Router Dom
-Backend: Express | Mongoose | dotenv
+Backend: Graphql Yoga | Mongoose | dotenv
