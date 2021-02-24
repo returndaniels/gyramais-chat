@@ -65,7 +65,6 @@ const resolvers = {
 		},
 		join: async (parent, { name }) => {
 			const _id = generateHash(name);
-			const date = new Date();
 
 		  if(messages.length === 0) {
 				messages = await getMessages();
@@ -82,7 +81,7 @@ const resolvers = {
 					_id: "0", 
 					user: 'Admin', 
 					text: `${name} entrou.`, 
-					date: `${date.getTime()}` 
+					date: `${new Date().getTime()}` 
 				});
 
 				subscribers.forEach((fn) => fn());
@@ -100,7 +99,7 @@ const resolvers = {
 					_id: "0", 
 					user: 'Admin', 
 					text: `${name} saiu.`, 
-					date: `${date.getTime()}` 
+					date: `${new Date().getTime()}` 
 				});
 
 				subscribers.forEach((fn) => fn());
