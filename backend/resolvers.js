@@ -67,6 +67,10 @@ const resolvers = {
 			const _id = generateHash(name);
 			const date = new Date();
 
+		  if(messages.length === 0) {
+				messages = await getMessages();
+			}
+
 			try {
 				await createUser({
 					_id,
