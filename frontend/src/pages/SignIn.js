@@ -5,7 +5,7 @@ import JoinForm from '../components/Join/JoinForm';
 import logo from '../assets/logo.svg'
 import './SignIn.css';
 
-const SignIn = ({ socket }) => { 
+const SignIn = () => { 
 	const { user } = useSelector((state) => state.auth);
 
 	return user ? (
@@ -16,8 +16,7 @@ const SignIn = ({ socket }) => {
 					<img alt="logo" src={logo} />
 				</div>
 				<JoinForm
-						className="jForm"
-						socket={socket}
+					className="jForm"
 				></JoinForm>
 			</div>);
 };

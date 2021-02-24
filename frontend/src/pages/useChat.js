@@ -1,49 +1,47 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useMutation, useSubscription } from '@apollo/client';
 import { signOut } from '../state/auth/authActions';
-import { setMessage, saveMessages } from '../state/messages/messageActions';
+import { saveMessages } from '../state/messages/messageActions';
+import * as constants from '../api/constants';
 
-function useChat(socket) {
+function useChat() {
 	const dispatch = useDispatch();
+	const [postMessage] = useMutation(constants.POST_MESSAGE);
+	const [logout] = useMutation(constants.LOGOUT_USER);
+	const { data } = useSubscription(constants.STREAM_MESSAGES);
 	const { messages } = useSelector(state => state.messages);
 	const { user } = useSelector(state => state.auth);
-	const [errors, setError] = useState([]);
-
-	useEffect(()=>{
-		socket.emit('previusMessagesRequest');
-		socket.emit('userLoggedIn', user);
-	}, [socket, user]);
 
 	useEffect(() => {
-		socket.on('previusMessagesResponse', messages => {
-			dispatch(saveMessages(messages));
-		});
-		socket.on('message', message => {
-			dispatch(setMessage(message));
-		});
-		socket.on('userJoinedEvent', event => {
-			dispatch(setMessage(event));
-		});
-	  
-    }, [dispatch, socket]);
+		if(data){ dispatch(saveMessages(data.messages)); }
+	}, [data, dispatch]);
 
-    const sendMessage = message => {
-		socket.emit('sendMessage', { user, message }, error => {
-			setError([...errors, error]);
+	const sendMessage = message => {
+		postMessage({
+			variables: {
+				user: user.name,
+				text: message
+			}
 		});
-    };
+	};
 
-    const handleLogOut = () => {
-        dispatch(signOut(socket, user));
-    }
-    
-    return {
-        user,
-        messages,
-        errors,
-        sendMessage,
-        handleLogOut
-    }
+	const handleLogOut = () => {
+		logout({
+			variables: {
+				_id: user._id,
+				name: user.name
+			}
+		});
+		dispatch(signOut());
+	}
+	
+	return {
+		user,
+		messages,
+		sendMessage,
+		handleLogOut
+	}
 };
 
 export default useChat

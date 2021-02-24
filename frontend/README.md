@@ -23,7 +23,7 @@ Abra [http://localhost:3000](http://localhost:3000) para abrir no navegador.
 Constroi a aplicação para produção para pasta `build`.<br />
 
 ## Dependencias
-ReactJS | Redux | React Redux | React Router Dom | SocketIo Client
+ReactJS | Redux | React Redux | React Router Dom | @apollo/client | Graphql
 
 ## Layout
 ### Desktop

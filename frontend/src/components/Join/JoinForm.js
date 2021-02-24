@@ -4,7 +4,7 @@ import JoinFormValidation from './JoinFromValidation';
 import loadingIo from '../../assets/loadingio.svg';
 import './JoinFrom.css';
 
-const JoinForm = ({ socket, className }) => {
+const JoinForm = ({ className }) => {
   const {
     handleChange,
     handleSubmit,
@@ -12,7 +12,7 @@ const JoinForm = ({ socket, className }) => {
     name,
     formError,
     submitting,
-  } = useJoinForm(socket, JoinFormValidation);
+  } = useJoinForm(JoinFormValidation);
 
   return (
     <div className={`joinContainer ${className}`}>

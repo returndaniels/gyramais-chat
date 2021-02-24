@@ -10,6 +10,14 @@ const port = process.env.PORT || 4200;
 
 const pubsub = new PubSub();
 const server = new GraphQLServer({ typeDefs, resolvers, context: { pubsub } });
-server.start(({ port }) => {
+
+const opts = {
+  port,
+  cors: {
+    origin: "*"
+  }
+};
+
+server.start(opts, () => {
   console.log(`Server on http://localhost:${port}/`);
 });

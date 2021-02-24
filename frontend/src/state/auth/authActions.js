@@ -24,32 +24,25 @@ export function signInFailed(error) {
   };
 }
 
-export function signIn(credentials, socket) {
+export function signIn(user) {
   return (dispatch) => {
     dispatch(signInStarted());
-
-    socket.emit('join', credentials);
-
-    socket.on('userJoined', user => {
-      dispatch(signInSucceeded(user));
+    try {
       localStorage.setItem('user', JSON.stringify(user));
-    });
-
-    socket.on('userJoinError', error => {
-      dispatch(signInFailed(error));
-    })
-  };
+      dispatch(signInSucceeded(user));
+    } catch (error) {
+      dispatch(signInFailed());
+    }
+  }
 }
-
 function signOutStarted() {
   return {
     type: actionTypes.SIGNOUT_STARTED,
   };
 }
 
-export function signOut(socket, user) {
+export function signOut() {
   return (dispatch) => {
-    socket.emit('userLoggedOut', user);
     localStorage.removeItem('user');
     dispatch(signOutStarted());
   };

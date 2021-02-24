@@ -5,8 +5,8 @@ import MessageStory from "../components/Chat/MessageStory";
 import useChat from './useChat';
 import './Chat.css'
 
-const Chat = ({ socket }) => {
-	const { user, messages, sendMessage, handleLogOut } = useChat(socket);
+const Chat = () => {
+	const { user, messages, sendMessage, handleLogOut } = useChat();
 
   return (
 		<div className="Chat">

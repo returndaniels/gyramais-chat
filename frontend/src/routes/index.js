@@ -4,11 +4,11 @@ import PrivateRoute from './privateRoute';
 
 import { SignIn, Chat } from '../pages'
 
-const Routes = ({ socket }) => (
+const Routes = () => (
   <BrowserRouter>
     <Switch>
-      <Route exact path="/" render={() => <SignIn socket={socket} />} />
-      <PrivateRoute path="/chat" component={Chat} socket={socket}/>
+      <Route exact path="/" render={() => <SignIn />} />
+      <PrivateRoute path="/chat" component={Chat} />
     </Switch>
   </BrowserRouter>
 );
