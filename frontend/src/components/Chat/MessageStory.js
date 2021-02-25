@@ -7,11 +7,12 @@ const MessageStory = ({ messages, user, className }) => {
 
 	const formatStringDate = date => {
 		if(!date) return date;
+		console.log(date)
 		var formatedString = '';
-		formatedString += `${date.slice(11, 16)} - `;
-		formatedString += `${date.slice(8, 10)}/`;
-		formatedString += `${date.slice(5, 7)}/`;
-		formatedString += `${date.slice(0, 4)}`;
+		formatedString += `${date.slice(8, 10)} `;
+		formatedString += `${date.slice(4, 7)} `;
+		formatedString += `${date.slice(11, 15)} - `;
+		formatedString += `${date.slice(16, 21)}`;
 		return formatedString;
 	}
 
@@ -22,7 +23,9 @@ const MessageStory = ({ messages, user, className }) => {
 					key={index}
 					message={{
 						...message, 
-						date: formatStringDate(message.date)
+						date: formatStringDate(
+							new Date(Number(message.date)).toString()
+						)
 					}} 
 					highlighted={message.user === user.name} 
 				/>

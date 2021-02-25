@@ -14,11 +14,11 @@ const client = connect();
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <Provider store={store}>
+    <Provider store={store}>
+      <ApolloProvider client={client}>
         <App />
-      </Provider>
-    </ApolloProvider>
+      </ApolloProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
